@@ -8,27 +8,54 @@
 import XCTest
 
 class FlickrImageSearchUITests: XCTestCase {
-
+    var app: XCUIApplication!
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
-
-        // In UI tests it is usually best to stop immediately when a failure occurs.
+        try super.setUpWithError()
         continueAfterFailure = false
-
-        // In UI tests it’s important to set the initial state - such as interface orientation - required for your tests before they run. The setUp method is a good place to do this.
+        app = XCUIApplication()
+        app.launch()
     }
 
     override func tearDownWithError() throws {
         // Put teardown code here. This method is called after the invocation of each test method in the class.
     }
 
-    func testExample() throws {
-        // UI tests must launch the application that they test.
+    func testImageSearchUI() throws {
         let app = XCUIApplication()
-        app.launch()
+        let element = app.windows.children(matching: .other).element
+        let searchField = element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .searchField).element
+        searchField.tap()
+        searchField.typeText("Cat")
+        app/*@START_MENU_TOKEN@*/.buttons["Search"]/*[[".keyboards",".buttons[\"search\"]",".buttons[\"Search\"]"],[[[-1,2],[-1,1],[-1,0,1]],[[-1,2],[-1,1]]],[0]]@END_MENU_TOKEN@*/.tap()
+        
+        let promise = expectation(description: "Completion handler invoked")
+        let collectionViewsQuery = app.collectionViews
+        let collectionView = collectionViewsQuery.children(matching: .cell).element(boundBy: 4).children(matching: .other).element.children(matching: .other).element
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            promise.fulfill()
+        }
+       
+        wait(for: [promise], timeout: 5)
+        XCTAssertTrue(collectionView.exists)
+    }
 
-        // Use recording to get started writing UI tests.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
+    func testImageSearchUIForInvalidInput() throws {
+        let app = XCUIApplication()
+        let element = app.windows.children(matching: .other).element
+        let searchField = element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .other).element.children(matching: .searchField).element
+        searchField.tap()
+        searchField.typeText("@#$@$@$@$@SF@$#@$##@SS#@#@#$@$!%#%$^%^&J^%&")
+        app.buttons["Search"].tap()
+        
+        let promise = expectation(description: "Completion handler invoked")
+        let collectionViewsQuery = app.collectionViews
+        let collectionView = collectionViewsQuery.children(matching: .cell).element(boundBy: 4).children(matching: .other).element.children(matching: .other).element
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) {
+            promise.fulfill()
+        }
+       
+        wait(for: [promise], timeout: 5)
+        XCTAssertFalse(collectionView.exists)
     }
 
     func testLaunchPerformance() throws {
