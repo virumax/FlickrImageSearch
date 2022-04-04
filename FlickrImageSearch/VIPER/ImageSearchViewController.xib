@@ -11,6 +11,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ImageSearchViewController" customModule="FlickrImageSearch" customModuleProvider="target">
             <connections>
                 <outlet property="collectionView" destination="Esd-Ch-ePW" id="wKc-WT-KNS"/>
+                <outlet property="indicatorView" destination="6sx-BW-6vy" id="yMR-YE-Z6s"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -33,11 +34,16 @@
                         <outlet property="delegate" destination="-1" id="PIU-EI-Bmf"/>
                     </connections>
                 </collectionView>
+                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="6sx-BW-6vy">
+                    <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="6sx-BW-6vy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="41o-YS-oYO"/>
                 <constraint firstItem="Esd-Ch-ePW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="956-lD-klS"/>
+                <constraint firstItem="6sx-BW-6vy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="EAK-L8-V6O"/>
                 <constraint firstItem="Esd-Ch-ePW" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Ekq-jm-noE"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Esd-Ch-ePW" secondAttribute="bottom" id="gmE-gz-VU7"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Esd-Ch-ePW" secondAttribute="trailing" id="u8F-oz-CSW"/>

@@ -45,10 +45,10 @@ final class ImageSearchClient {
 //        }).resume()
 //    }
     
-    func sendRequest(_ url: String?, parameters: [String: String], completion: @escaping (Response?, DataResponseError?) -> Void) {
+    func sendRequest(_ url: String?, parameters: [String: String], page: Int, completion: @escaping (Response?, DataResponseError?) -> Void) {
         var components = URLComponents(string: urlString)!
         
-        let defaultParameters = ["method": "flickr.photos.search", "api_key": "2932ade8b209152a7cbb49b631c4f9b6", "format": "json", "nojsoncallback": "1","safe_search": "1"]
+        let defaultParameters = ["method": "flickr.photos.search", "api_key": "2932ade8b209152a7cbb49b631c4f9b6", "format": "json", "nojsoncallback": "1","safe_search": "1", "page": "\(page)"]
         let parameters = parameters.merging(defaultParameters, uniquingKeysWith: +)
         components.queryItems = parameters.map { (key, value) in
             URLQueryItem(name: key, value: value)

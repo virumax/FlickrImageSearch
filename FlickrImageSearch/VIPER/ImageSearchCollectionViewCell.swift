@@ -10,7 +10,7 @@ import UIKit
 protocol ImageSearchCollectionViewCustomCell {
     var leftImageView: CustomImageView! { get set }
     var errorLabel: UILabel! { get set }
-    func loadImage(for photo: Photo)
+    func loadImage(for photo: Photo?)
 }
 
 class ImageSearchCollectionViewCell: UICollectionViewCell {
@@ -27,16 +27,20 @@ class ImageSearchCollectionViewCell: UICollectionViewCell {
         activityIndicator.startAnimating()
     }
 
-    func loadImage(for photo: Photo) {
-        activityIndicator.startAnimating()
-        errorLabel.text = ""
-        let photoURLString = "http://farm\(photo.farm).static.flickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg"
-        imageView.loadImage(for: photoURLString, completion: { [weak self] success in
-            DispatchQueue.main.async {
-                self?.activityIndicator.stopAnimating()
-                self?.errorLabel.text = success ? "" : "Unable to fetch image"
-            }
-        })
+    func loadImage(for photo: Photo?) {
+        if let photo = photo {
+            activityIndicator.startAnimating()
+            errorLabel.text = ""
+            let photoURLString = "http://farm\(photo.farm).static.flickr.com/\(photo.server)/\(photo.id)_\(photo.secret).jpg"
+            imageView.loadImage(for: photoURLString, completion: { [weak self] success in
+                DispatchQueue.main.async {
+                    self?.activityIndicator.stopAnimating()
+                    self?.errorLabel.text = success ? "" : "Unable to fetch image"
+                }
+            })
+        } else {
+            activityIndicator.startAnimating()
+        }
     }
 }
 

@@ -14,22 +14,24 @@ import UIKit
 protocol View {
     var presenter: Presenter? { get set }
     
-    func update(with photo: Response)
+    func update(with newIndexPathsToReload: [IndexPath]?)
     func update(with error: String)
 }
 
 class ImageSearchViewController: UIViewController, View {
     var presenter: Presenter?
     let cellMargin = 8
-    var photos = [Photo]()
     @IBOutlet var collectionView: UICollectionView!
+    @IBOutlet var indicatorView: UIActivityIndicatorView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         setupCollectionView()
-        collectionView.reloadData()
         presenter?.fetchData()
+        
+        indicatorView.color = .lightGray
+        indicatorView.startAnimating()
     }
 
     // MARK: Private methods
@@ -37,16 +39,26 @@ class ImageSearchViewController: UIViewController, View {
         let nib = UINib(nibName: "ImageSearchCollectionViewCell", bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: "ImageSearchCustomCell")
         collectionView.isHidden = true
+        collectionView.reloadData()
+        
+        collectionView.prefetchDataSource = self
     }
 
-    func update(with response: Response) {
-        photos = response.photos.photo
-        collectionView.isHidden = false
-        collectionView.reloadData()
+    func update(with newIndexPathsToReload: [IndexPath]?) {
+        indicatorView.stopAnimating()
+        indicatorView.isHidden = true
+        guard let newIndexPathsToReload = newIndexPathsToReload else {
+          collectionView.isHidden = false
+          collectionView.reloadData()
+          return
+        }
+
+        let indexPathsToReload = visibleIndexPathsToReload(intersecting: newIndexPathsToReload)
+        collectionView.reloadItems(at: indexPathsToReload)
     }
 
     func update(with error: String) {
-        collectionView.reloadData()
+        indicatorView.stopAnimating()
         collectionView.isHidden = true
         
         let alert = UIAlertController(title: "Error", message: error, preferredStyle: .alert)
@@ -61,14 +73,17 @@ extension ImageSearchViewController: UICollectionViewDataSource {
         
         cell.imageView.backgroundColor = .lightGray
         
-        let photo = photos[indexPath.item]
-        cell.loadImage(for: photo)
+        if isLoadingCell(for: indexPath) {
+            cell.loadImage(for: .none)
+        } else {
+            cell.loadImage(for: presenter?.photos[indexPath.item])
+        }
         
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        photos.count
+        presenter?.totalCount ?? 0
     }
 }
 
@@ -78,4 +93,24 @@ extension ImageSearchViewController: UICollectionViewDelegateFlowLayout {
         let size:CGFloat = (collectionView.frame.size.width - space) / 3.0
         return CGSize(width: size, height: size)
     }
+}
+
+extension ImageSearchViewController: UICollectionViewDataSourcePrefetching {
+    func collectionView(_ collectionView: UICollectionView, prefetchItemsAt indexPaths: [IndexPath]) {
+        if indexPaths.contains(where: isLoadingCell) {
+            presenter?.fetchData()
+        }
+    }
+}
+
+private extension ImageSearchViewController {
+  func isLoadingCell(for indexPath: IndexPath) -> Bool {
+    return indexPath.row >= (presenter?.currentCount ?? 0)
+  }
+  
+  func visibleIndexPathsToReload(intersecting indexPaths: [IndexPath]) -> [IndexPath] {
+    let indexPathsForVisibleItems = collectionView.indexPathsForVisibleItems
+    let indexPathsIntersection = Set(indexPathsForVisibleItems).intersection(indexPaths)
+    return Array(indexPathsIntersection)
+  }
 }
