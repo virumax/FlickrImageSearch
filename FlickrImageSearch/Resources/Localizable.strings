@@ -12,3 +12,4 @@
 "error_title" = "Error";
 "alert_okay_action" = "Okay";
 "empty_search_error" = "Search query can't be blank.";
+"unable_to_fetch_image" = "Unable to fetch the image";

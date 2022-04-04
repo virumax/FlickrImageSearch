@@ -34,7 +34,7 @@ class ImageSearchCollectionViewCell: UICollectionViewCell {
             imageView.loadImage(for: photoURLString, completion: { [weak self] success in
                 DispatchQueue.main.async {
                     self?.activityIndicator.stopAnimating()
-                    self?.errorLabel.text = success ? "" : "Unable to fetch image"
+                    self?.errorLabel.text = success ? "" : localizedString(forKey: StringConstants.unableToFetchImage)
                 }
             })
         } else {

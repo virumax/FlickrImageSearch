@@ -24,4 +24,5 @@ struct StringConstants {
     static let errorTitle = "error_title"
     static let alertOkayAction = "alert_okay_action"
     static let emptySearchError = "empty_search_error"
+    static let unableToFetchImage = "unable_to_fetch_image"
 }
