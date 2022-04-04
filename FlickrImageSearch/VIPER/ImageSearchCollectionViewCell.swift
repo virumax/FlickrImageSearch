@@ -17,7 +17,6 @@ class ImageSearchCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var imageView: CustomImageView!
     @IBOutlet weak var errorLabel: UILabel!
     private var activityIndicator: UIActivityIndicatorView!
-    let photoURLPlaceholder = "http://farm{farm}.static.flickr.com/{server}/{id}_{secret}.jpg"
 
     override func awakeFromNib() {
         super.awakeFromNib()

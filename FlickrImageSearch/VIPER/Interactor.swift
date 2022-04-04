@@ -18,7 +18,7 @@ class ImageSearchInteractor: Interactor {
     var presenter: Presenter?
     var service = ImageSearchClient()
     func getPhoto(page: Int, text: String) {
-        service.sendRequest(nil, parameters: ["text": text], page: page) { [weak self] responseObject, error in
+        service.sendRequest(parameters: ["text": text], page: page) { [weak self] responseObject, error in
             guard let responseObject = responseObject, error == nil else {
                 self?.presenter?.interactorDidFetchPhotos(with: Result.failure(error!))
                 return

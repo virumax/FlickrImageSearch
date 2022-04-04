@@ -16,7 +16,7 @@ final class ImageSearchClient {
         self.session = session
     }
     
-    func sendRequest(_ url: String?, parameters: [String: String], page: Int, completion: @escaping (Response?, DataResponseError?) -> Void) {
+    func sendRequest(parameters: [String: String], page: Int, completion: @escaping (Response?, DataResponseError?) -> Void) {
         var components = URLComponents(string: urlString)!
         
         let defaultParameters = ["method": "flickr.photos.search", "api_key": "2932ade8b209152a7cbb49b631c4f9b6", "format": "json", "nojsoncallback": "1","safe_search": "1", "page": "\(page)"]
