@@ -12,6 +12,7 @@
             <connections>
                 <outlet property="collectionView" destination="Esd-Ch-ePW" id="wKc-WT-KNS"/>
                 <outlet property="indicatorView" destination="6sx-BW-6vy" id="yMR-YE-Z6s"/>
+                <outlet property="searchBar" destination="j9e-VB-VWw" id="eux-yi-vKv"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,12 +21,19 @@
             <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="j9e-VB-VWw">
+                    <rect key="frame" x="0.0" y="44" width="414" height="51"/>
+                    <textInputTraits key="textInputTraits"/>
+                    <connections>
+                        <outlet property="delegate" destination="-1" id="9Ne-a2-6rR"/>
+                    </connections>
+                </searchBar>
                 <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="Esd-Ch-ePW">
-                    <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                    <rect key="frame" x="0.0" y="95" width="414" height="767"/>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="8" minimumInteritemSpacing="8" id="gpr-Ve-4D7">
                         <size key="itemSize" width="128" height="128"/>
-                        <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                        <size key="headerReferenceSize" width="50" height="50"/>
                         <size key="footerReferenceSize" width="0.0" height="0.0"/>
                         <inset key="sectionInset" minX="8" minY="8" maxX="8" maxY="8"/>
                     </collectionViewFlowLayout>
@@ -34,8 +42,9 @@
                         <outlet property="delegate" destination="-1" id="PIU-EI-Bmf"/>
                     </connections>
                 </collectionView>
-                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="6sx-BW-6vy">
+                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="6sx-BW-6vy">
                     <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
+                    <color key="color" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 </activityIndicatorView>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
@@ -44,8 +53,11 @@
                 <constraint firstItem="6sx-BW-6vy" firstAttribute="centerY" secondItem="i5M-Pr-FkT" secondAttribute="centerY" id="41o-YS-oYO"/>
                 <constraint firstItem="Esd-Ch-ePW" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="956-lD-klS"/>
                 <constraint firstItem="6sx-BW-6vy" firstAttribute="centerX" secondItem="i5M-Pr-FkT" secondAttribute="centerX" id="EAK-L8-V6O"/>
-                <constraint firstItem="Esd-Ch-ePW" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="Ekq-jm-noE"/>
+                <constraint firstItem="Esd-Ch-ePW" firstAttribute="top" secondItem="j9e-VB-VWw" secondAttribute="bottom" id="Ekq-jm-noE"/>
+                <constraint firstItem="j9e-VB-VWw" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="Le3-b3-dcm"/>
+                <constraint firstItem="j9e-VB-VWw" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="P6M-iy-xpZ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="Esd-Ch-ePW" secondAttribute="bottom" id="gmE-gz-VU7"/>
+                <constraint firstItem="j9e-VB-VWw" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="mrS-rn-e6L"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="Esd-Ch-ePW" secondAttribute="trailing" id="u8F-oz-CSW"/>
             </constraints>
             <point key="canvasLocation" x="-597" y="56"/>

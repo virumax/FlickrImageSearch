@@ -7,8 +7,6 @@
 
 import Foundation
 
-// Model
-
 // MARK: - Response
 struct Response: Codable {
     let photos: Photos

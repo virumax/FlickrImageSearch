@@ -8,9 +8,6 @@
 import Foundation
 import UIKit
 
-// Object
-// Entry point
-
 typealias EntryPoint = View & UIViewController
 protocol Router {
     var entry: EntryPoint? { get }

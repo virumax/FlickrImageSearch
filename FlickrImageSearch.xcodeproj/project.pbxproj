@@ -23,6 +23,9 @@
 		63C50A0D27F9C7F5003B9F6D /* ImageSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C50A0B27F9C7F5003B9F6D /* ImageSearchViewController.swift */; };
 		63C50A0E27F9C7F5003B9F6D /* ImageSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 63C50A0C27F9C7F5003B9F6D /* ImageSearchViewController.xib */; };
 		63C50A1127F9DC50003B9F6D /* ImageSearchClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C50A1027F9DC50003B9F6D /* ImageSearchClient.swift */; };
+		63C50A1427FB31B3003B9F6D /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 63C50A1327FB31B3003B9F6D /* Localizable.strings */; };
+		63C50A1727FB3379003B9F6D /* StringConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C50A1627FB3379003B9F6D /* StringConstants.swift */; };
+		63C50A1927FB3712003B9F6D /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63C50A1827FB3712003B9F6D /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +66,9 @@
 		63C50A0B27F9C7F5003B9F6D /* ImageSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchViewController.swift; sourceTree = "<group>"; };
 		63C50A0C27F9C7F5003B9F6D /* ImageSearchViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageSearchViewController.xib; sourceTree = "<group>"; };
 		63C50A1027F9DC50003B9F6D /* ImageSearchClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageSearchClient.swift; sourceTree = "<group>"; };
+		63C50A1327FB31B3003B9F6D /* Localizable.strings */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; path = Localizable.strings; sourceTree = "<group>"; };
+		63C50A1627FB3379003B9F6D /* StringConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StringConstants.swift; sourceTree = "<group>"; };
+		63C50A1827FB3712003B9F6D /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,9 +119,12 @@
 		63C509C327F993B8003B9F6D /* FlickrImageSearch */ = {
 			isa = PBXGroup;
 			children = (
+				63C509F627F994D4003B9F6D /* VIPER */,
+				63C50A0F27F9DBE4003B9F6D /* Networking */,
+				63C50A1527FB3362003B9F6D /* Constants */,
+				63C50A1227FB3147003B9F6D /* Resources */,
 				63C509C427F993B9003B9F6D /* AppDelegate.swift */,
 				63C509C627F993B9003B9F6D /* SceneDelegate.swift */,
-				63C509F627F994D4003B9F6D /* VIPER */,
 				63C509CD27F993BC003B9F6D /* Assets.xcassets */,
 				63C509CF27F993BC003B9F6D /* LaunchScreen.storyboard */,
 				63C509D227F993BC003B9F6D /* Info.plist */,
@@ -148,7 +157,6 @@
 				63C509FC27F9950E003B9F6D /* Presenter.swift */,
 				63C509FE27F99517003B9F6D /* Entity.swift */,
 				63C50A0027F99522003B9F6D /* Router.swift */,
-				63C50A0F27F9DBE4003B9F6D /* Networking */,
 			);
 			path = VIPER;
 			sourceTree = "<group>";
@@ -170,6 +178,24 @@
 				63C50A1027F9DC50003B9F6D /* ImageSearchClient.swift */,
 			);
 			name = Networking;
+			path = VIPER;
+			sourceTree = "<group>";
+		};
+		63C50A1227FB3147003B9F6D /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				63C50A1327FB31B3003B9F6D /* Localizable.strings */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		63C50A1527FB3362003B9F6D /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				63C50A1627FB3379003B9F6D /* StringConstants.swift */,
+				63C50A1827FB3712003B9F6D /* Constants.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -276,6 +302,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				63C50A1427FB31B3003B9F6D /* Localizable.strings in Resources */,
 				63C509D127F993BC003B9F6D /* LaunchScreen.storyboard in Resources */,
 				63C50A0627F9B155003B9F6D /* ImageSearchCollectionViewCell.xib in Resources */,
 				63C50A0E27F9C7F5003B9F6D /* ImageSearchViewController.xib in Resources */,
@@ -305,6 +332,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				63C50A0127F99522003B9F6D /* Router.swift in Sources */,
+				63C50A1927FB3712003B9F6D /* Constants.swift in Sources */,
 				63C50A0527F9B155003B9F6D /* ImageSearchCollectionViewCell.swift in Sources */,
 				63C509FD27F9950E003B9F6D /* Presenter.swift in Sources */,
 				63C509FF27F99517003B9F6D /* Entity.swift in Sources */,
@@ -312,6 +340,7 @@
 				63C50A0D27F9C7F5003B9F6D /* ImageSearchViewController.swift in Sources */,
 				63C509FB27F99503003B9F6D /* Interactor.swift in Sources */,
 				63C509C527F993B9003B9F6D /* AppDelegate.swift in Sources */,
+				63C50A1727FB3379003B9F6D /* StringConstants.swift in Sources */,
 				63C509C727F993B9003B9F6D /* SceneDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -487,6 +516,7 @@
 				INFOPLIST_FILE = FlickrImageSearch/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -513,6 +543,7 @@
 				INFOPLIST_FILE = FlickrImageSearch/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

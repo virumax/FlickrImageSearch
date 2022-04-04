@@ -8,10 +8,6 @@
 import Foundation
 
 final class ImageSearchClient {
-    private lazy var baseURL: URL = {
-        return URL(string: "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=2932ade8b209152a7cbb49b631c4f9b6&%20format=json&nojsoncallback=1&safe_search=1")!
-    }()
-    
     let urlString = "https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=2932ade8b209152a7cbb49b631c4f9b6&%20format=json&nojsoncallback=1&safe_search=1"
     
     let session: URLSession
@@ -19,31 +15,6 @@ final class ImageSearchClient {
     init(session: URLSession = URLSession.shared) {
         self.session = session
     }
-    
-//    func fetchModerators(with request: ModeratorRequest, page: Int, completion: @escaping (Result<PagedModeratorResponse, DataResponseError>) -> Void) {
-//        let urlRequest = URLRequest(url: baseURL.appendingPathComponent(request.path))
-//        let parameters = ["page": "\(page)"].merging(request.parameters, uniquingKeysWith: +)
-//        let encodedURLRequest = urlRequest.encode(with: parameters)
-//        
-//        session.dataTask(with: encodedURLRequest, completionHandler: { data, response, error in
-//            // 4
-//            guard
-//                let httpResponse = response as? HTTPURLResponse,
-//                httpResponse.hasSuccessStatusCode,
-//                let data = data
-//            else {
-//                completion(Result.failure(DataResponseError.network))
-//                return
-//            }
-//            
-//            guard let decodedResponse = try? JSONDecoder().decode(PagedModeratorResponse.self, from: data) else {
-//                completion(Result.failure(DataResponseError.decoding))
-//                return
-//            }
-//            
-//            completion(Result.success(decodedResponse))
-//        }).resume()
-//    }
     
     func sendRequest(_ url: String?, parameters: [String: String], page: Int, completion: @escaping (Response?, DataResponseError?) -> Void) {
         var components = URLComponents(string: urlString)!
@@ -68,23 +39,30 @@ final class ImageSearchClient {
                 return
             }
             
-            let responseObject = try? JSONDecoder().decode(Response.self, from: data)
-            completion(responseObject, nil)
+            if let responseObject = try? JSONDecoder().decode(Response.self, from: data) {
+                if responseObject.photos.photo.count == 0 {
+                    completion(nil, .nodata)
+                } else {
+                    completion(responseObject, nil)
+                }
+            } else {
+                completion(nil, .network)
+            }
         }
         task.resume()
     }
 }
 
 enum DataResponseError: Error {
-  case network
-  case decoding
-  
-  var reason: String {
-    switch self {
-    case .network:
-      return "An error occurred while fetching data"
-    case .decoding:
-      return "An error occurred while decoding data"
+    case network
+    case nodata
+    
+    var reason: String {
+        switch self {
+        case .network:
+            return localizedString(forKey: StringConstants.networkError)
+        case .nodata:
+            return localizedString(forKey: StringConstants.noDataError)
+        }
     }
-  }
 }

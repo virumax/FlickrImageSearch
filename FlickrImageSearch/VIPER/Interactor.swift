@@ -7,10 +7,6 @@
 
 import Foundation
 
-// Object
-// Protocol
-// Ref to Interactor
-
 protocol Interactor {
     var presenter: Presenter? { get set }
     var service: ImageSearchClient { get set }

@@ -7,10 +7,6 @@
 
 import Foundation
 
-// Object
-// Protocol
-// ref to View, Interactor, Router
-
 protocol Presenter {
     var router: Router? { get set }
     var interactor: Interactor? { get set }
@@ -18,9 +14,11 @@ protocol Presenter {
     var photos: [Photo] { get set }
     var totalCount: Int { get }
     var currentCount: Int { get }
+    var searchQuery: String? { get set }
     
     func fetchData()
     func interactorDidFetchPhotos(with result: Result<Response, DataResponseError>)
+    func resetData()
 }
 
 class ImageSearchPresenter: Presenter {
@@ -28,6 +26,7 @@ class ImageSearchPresenter: Presenter {
     var interactor: Interactor?
     var view: View?
     var photos: [Photo] = []
+    var searchQuery: String?
 
     private var currentPage = 1
     private var total = 0
@@ -47,7 +46,9 @@ class ImageSearchPresenter: Presenter {
         }
         isFetchInProgress = true
 
-        interactor?.getPhoto(page: currentPage, text: "Roses")
+        if let searchQuery = searchQuery {
+            interactor?.getPhoto(page: currentPage, text: searchQuery)
+        }
     }
 
     func interactorDidFetchPhotos(with result: Result<Response, DataResponseError>) {
@@ -55,7 +56,7 @@ class ImageSearchPresenter: Presenter {
         case .failure(let error):
             DispatchQueue.main.async { [weak self] in
                 self?.isFetchInProgress = false
-                self?.view?.update(with: error.localizedDescription)
+                self?.view?.update(with: error.reason)
             }
         case .success(let response):
             DispatchQueue.main.async { [weak self] in
@@ -79,5 +80,12 @@ class ImageSearchPresenter: Presenter {
       let startIndex = photos.count - newPhotos.count
       let endIndex = startIndex + newPhotos.count
       return (startIndex..<endIndex).map { IndexPath(row: $0, section: 0) }
+    }
+    
+    func resetData() {
+        photos.removeAll()
+        currentPage = 1
+        total = 0
+        isFetchInProgress = false
     }
 }
